@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pyChrome Django," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pyChrome创建Django项目教程使用 windows10 ,python3.6.5 Django2.0.6 其他版本仅供参考 首先你要配置好,开发环境,python2 python3,和对应的Django版本, Django版本支持,可以去官网查看. 开发一般需要一个编辑器,俗称 IDE 推荐使用  pycharm VisualStudio 环境搭建好了就开撸 pycharm 新版本,可以">
+<meta name="keywords" content="pyChrome Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyChrome创建Django项目">
+<meta property="og:url" content="http://yoursite.com/2018/06/20/pyChrome创建Django项目/index.html">
+<meta property="og:site_name" content="积木">
+<meta property="og:description" content="pyChrome创建Django项目教程使用 windows10 ,python3.6.5 Django2.0.6 其他版本仅供参考 首先你要配置好,开发环境,python2 python3,和对应的Django版本, Django版本支持,可以去官网查看. 开发一般需要一个编辑器,俗称 IDE 推荐使用  pycharm VisualStudio 环境搭建好了就开撸 pycharm 新版本,可以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/pyChrome创建Django项目/img/django-create-project1.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/pyChrome创建Django项目/img/django-create-project2.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/pyChrome创建Django项目/img/django-create-project3.png">
+<meta property="og:updated_time" content="2018-06-21T10:09:38.447Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pyChrome创建Django项目">
+<meta name="twitter:description" content="pyChrome创建Django项目教程使用 windows10 ,python3.6.5 Django2.0.6 其他版本仅供参考 首先你要配置好,开发环境,python2 python3,和对应的Django版本, Django版本支持,可以去官网查看. 开发一般需要一个编辑器,俗称 IDE 推荐使用  pycharm VisualStudio 环境搭建好了就开撸 pycharm 新版本,可以">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/20/pyChrome创建Django项目/img/django-create-project1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/20/pyChrome创建Django项目/"/>
+
+
+
+
+
+  <title>pyChrome创建Django项目 | 积木</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?05f2423b8a0f36dc06093edc772c6444";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">积木</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">积木博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/pyChrome创建Django项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱  洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积木">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pyChrome创建Django项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T20:56:56+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/20/pyChrome创建Django项目/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/20/pyChrome创建Django项目/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="pyChrome创建Django项目"><a href="#pyChrome创建Django项目" class="headerlink" title="pyChrome创建Django项目"></a>pyChrome创建Django项目</h2><p><strong>教程使用 windows10 ,python3.6.5 Django2.0.6</strong> 其他版本仅供参考</p>
+<p>首先你要配置好,开发环境,python2 python3,和对应的Django版本,</p>
+<p>Django版本支持,可以去官网查看.</p>
+<p>开发一般需要一个编辑器,俗称 IDE 推荐使用  <strong>pycharm</strong> <strong>VisualStudio</strong></p>
+<p>环境搭建好了就开撸</p>
+<p><strong>pycharm</strong> 新版本,可以直接创建,Dajngo项目,</p>
+<p>Project Interpreter: New Virtualenv environment</p>
+<h3 id="pycharm创建项目"><a href="#pycharm创建项目" class="headerlink" title="pycharm创建项目"></a>pycharm<strong>创建项目</strong></h3><p>为了简单我们直接使用<strong>pycharm</strong> 创建项目</p>
+<p><strong>在Pycharmde 初始页面找到, Create New Project</strong></p>
+<p><img src="img/django-create-project1.png" alt=""></p>
+<h3 id="点击进入创建项目-基本配置选项"><a href="#点击进入创建项目-基本配置选项" class="headerlink" title="点击进入创建项目,基本配置选项:"></a><strong>点击进入创建项目,基本配置选项:</strong></h3><p><img src="img/django-create-project2.png" alt=""></p>
+<p><strong>Location: </strong> <strong>G:\DjangoTest</strong></p>
+<p>项目采访的目录和名字 (根据需要,自由选择)</p>
+<p>演示使用的项目名字和目录,G盘,名字DjangoTest</p>
+<p><strong>Project Interpreter: New Virtualenv environment</strong> 选项</p>
+<p>默认是选择,创建一个新的虚拟环境,(使用默认就好)</p>
+<p>如果此选项没有列出python的环境,需要手动配置python环境</p>
+<p><strong>点击后面的</strong>     <strong>. . .</strong>   找到你的python安装目录添加上去</p>
+<p>选择完毕后 <strong>找到右下角,的 Create</strong> 创建项目</p>
+<h3 id="pychrom创建项目结构"><a href="#pychrom创建项目结构" class="headerlink" title="pychrom创建项目结构"></a>pychrom创建项目结构</h3><p>点击左侧的 <strong>Project</strong> 就会显示项目结构</p>
+<p>在底部好到, <strong>Terminal</strong> 点击展开,后续我们使用,命令行,就在这个,窗口</p>
+<p><img src="img/django-create-project3.png" alt=""></p>
+<p>现在项目创建好了,就可以直接运行了,</p>
+<p>在 <strong>Terminal</strong> 里面运行开发服务器</p>
+<h3 id="运行开发服务器"><a href="#运行开发服务器" class="headerlink" title="运行开发服务器"></a><strong>运行开发服务器</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<p>运行后查看效果<a href="http://127.0.0.1:8000/" target="_blank" rel="noopener">http://127.0.0.1:8000/</a></p>
+<h3 id="在指定端口运行"><a href="#在指定端口运行" class="headerlink" title="在指定端口运行"></a><strong>在指定端口运行</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 8080</span><br></pre></td></tr></table></figure>
+<p>运行后查看效果<a href="http://127.0.0.1:8000/" target="_blank" rel="noopener">http://127.0.0.1:8000/</a></p>
+<p>用于开发的服务器在需要的情况下会对每一次的访问请求重新载入一遍 Python 代码。所以你不需要为了让修改的代码生效而频繁的重新启动服务器。然而，一些动作，比<strong>如添加新文件</strong>，将不会触发自动重新加载，这时你得自己手动重启服务器。 </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pyChrome-Django/" rel="tag"># pyChrome Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/mysql-windows安装/" rel="next" title="mysql-windows安装">
+                <i class="fa fa-chevron-left"></i> mysql-windows安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/20/python创建虚拟环境/" rel="prev" title="python创建虚拟环境">
+                python创建虚拟环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邱  洋</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pyChrome创建Django项目"><span class="nav-number">1.</span> <span class="nav-text">pyChrome创建Django项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pycharm创建项目"><span class="nav-number">1.1.</span> <span class="nav-text">pycharm创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点击进入创建项目-基本配置选项"><span class="nav-number">1.2.</span> <span class="nav-text">点击进入创建项目,基本配置选项:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pychrom创建项目结构"><span class="nav-number">1.3.</span> <span class="nav-text">pychrom创建项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行开发服务器"><span class="nav-number">1.4.</span> <span class="nav-text">运行开发服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在指定端口运行"><span class="nav-number">1.5.</span> <span class="nav-text">在指定端口运行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱  洋</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://true.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/06/20/pyChrome创建Django项目/';
+          this.page.identifier = '2018/06/20/pyChrome创建Django项目/';
+          this.page.title = 'pyChrome创建Django项目';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://true.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

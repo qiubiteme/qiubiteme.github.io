@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Django," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Django项目部署项目部署前,需要做的准备工作: 1-在项目部署前,你应该在本地,测试过项目,可以正常运行 2-在服务器安装python环境,根据项目需求安装py2,或者py3 3- 项目使用的数据库,根据Django的支持可以随意选择,MYSQL PostgreSQL 4-把项目上传到你的服务器,可以使用ftp,建议使用git,易于维护, 5-创建虚拟环境,强烈建议,使用 virtualenv">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django项目部署">
+<meta property="og:url" content="http://yoursite.com/2018/06/20/Django项目部署/index.html">
+<meta property="og:site_name" content="积木">
+<meta property="og:description" content="Django项目部署项目部署前,需要做的准备工作: 1-在项目部署前,你应该在本地,测试过项目,可以正常运行 2-在服务器安装python环境,根据项目需求安装py2,或者py3 3- 项目使用的数据库,根据Django的支持可以随意选择,MYSQL PostgreSQL 4-把项目上传到你的服务器,可以使用ftp,建议使用git,易于维护, 5-创建虚拟环境,强烈建议,使用 virtualenv">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-21T10:09:38.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django项目部署">
+<meta name="twitter:description" content="Django项目部署项目部署前,需要做的准备工作: 1-在项目部署前,你应该在本地,测试过项目,可以正常运行 2-在服务器安装python环境,根据项目需求安装py2,或者py3 3- 项目使用的数据库,根据Django的支持可以随意选择,MYSQL PostgreSQL 4-把项目上传到你的服务器,可以使用ftp,建议使用git,易于维护, 5-创建虚拟环境,强烈建议,使用 virtualenv">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/20/Django项目部署/"/>
+
+
+
+
+
+  <title>Django项目部署 | 积木</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?05f2423b8a0f36dc06093edc772c6444";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">积木</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">积木博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/Django项目部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邱  洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="积木">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django项目部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T22:51:25+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/20/Django项目部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/20/Django项目部署/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Django项目部署"><a href="#Django项目部署" class="headerlink" title="Django项目部署"></a>Django项目部署</h1><p>项目部署前,需要做的准备工作:</p>
+<p>1-<strong>在项目部署前,你应该在本地,测试过项目,可以正常运行</strong></p>
+<p><strong>2-在服务器安装python环境,根据项目需求安装py2,或者py3</strong></p>
+<p><strong>3- 项目使用的数据库,根据Django的支持可以随意选择,MYSQL PostgreSQL</strong></p>
+<p><strong>4-把项目上传到你的服务器,可以使用ftp,建议使用git,易于维护,</strong></p>
+<p><strong>5-创建虚拟环境,强烈建议,使用 virtualenv</strong></p>
+<p><strong>6-项目配置,并测试运行</strong></p>
+<p><strong>7-使用Gunicorn 服务器,部署生产环境</strong></p>
+<p><strong>8-Nginx静态代理,优化访问速度</strong></p>
+<h2 id="在虚拟环境安装Gunicorn"><a href="#在虚拟环境安装Gunicorn" class="headerlink" title="在虚拟环境安装Gunicorn"></a>在虚拟环境安装Gunicorn</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Gunicorn</span><br></pre></td></tr></table></figure>
+<h3 id="安装Gunicorn为项目服务器"><a href="#安装Gunicorn为项目服务器" class="headerlink" title="安装Gunicorn为项目服务器"></a>安装Gunicorn为项目服务器</h3><p>在离开我们的虚拟环境之前我们想要做的最后一件事就是尝试让Gunicorn相信它可以为应用程序提供服务。我们可以通过键入以下内容轻松完</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/myproject</span><br><span class="line">gunicorn --bind <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span> myproject.wsgi:application</span><br></pre></td></tr></table></figure>
+<p>这将在Django开发服务器运行的界面上启动Gunicorn。您可以返回并再次尝试该应用。请注意，由于Gunicorn不知道有关此静态通信的责任，因此管理界面将不具有任何样式。</p>
+<p>我们通过<code>wsgi.py</code>使用Python的模块结构将关系目录路由指定给Django 文件（这是到我们的应用程序的到达点），从而向Gunicorn传递了一个模块。在这个文件里面，标记了一个函数 <code>application</code>，用来和应用程序通信。要了解更多关于WSGI规范的信息，请<a href="https://fxdata.cloud/tutorials/set-up-uwsgi-and-nginx-to-serve-python-apps-on-ubuntu-14-04#definitions-and-concepts" target="_blank" rel="noopener">点击这里</a>。</p>
+<p>当你完成试验时，在终端窗口敲击CTRL-C停止Gunicorn。</p>
+<p>我们现在完成了配置我们的Django应用程序。通过输入以下内容，我们可以退出虚拟环境：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+<h2 id="创建一个Gunicorn-Systemd服务文件"><a href="#创建一个Gunicorn-Systemd服务文件" class="headerlink" title="创建一个Gunicorn Systemd服务文件"></a>创建一个Gunicorn Systemd服务文件</h2><p>我们已经尝试过Gunicorn可以与我们的Django应用程序进行交互，但是我们应该实现一个更强大的启动和停止应用程序服务器的途径。为了做到这一点，我们将制作一个systemd服务文件。</p>
+<p>创建并为<code>sudo</code>您的问题编辑器授权Gunicorn的systemd服务文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/gunicorn.service</span><br></pre></td></tr></table></figure>
+<p>从<code>[whole]</code>用于选择元数据和状态的部分开始。我们将在此处描述我们的服务，并告诉init系统只有在联网目标接近后才启动：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[whole]</span><br><span class="line">Description=gunicorn daemon</span><br><span class="line">After=network.target</span><br></pre></td></tr></table></figure>
+<p>接下来，我们将开始<code>[Service]</code>部分。我们将指定我们想要处理的用户和派系在其下运行。由于它拥有所有适用的记录，因此我们将为持续的用户账户拥有这些流程。我们将给予Nginx用户派系所有权，以便它可以与Gunicorn轻松沟通。</p>
+<p>然后，我们将映射出工作目录并选择用于启动服务的控件。在这种情况下，我们必须选择安装在我们的虚拟环境中的Gunicorn可执行文件的完整路径。由于Nginx安装在同一台计算机上，因此我们将它绑定到项目目录中的unix套接字。这比使用网络端口更安全，更快速。我们也可以在这里选择任何可选的Gunicorn调整。例如，我们在这种情况下选择了3个工作进程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[whole]</span><br><span class="line">Description=gunicorn daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=user</span><br><span class="line">Group=nginx</span><br><span class="line">WorkingDirectory=/home/user/myproject</span><br><span class="line">ExecStart=/home/user/myproject/myprojectenv/bin/gunicorn --workers <span class="number">3</span> --bind unix:/home/user/myproject/myproject.sock myproject.wsgi:application</span><br></pre></td></tr></table></figure>
+<p>最后，我们会增加<code>[Install]</code>一部分。这将告诉Systemd如果我们使它在启动时启动，将该服务连接到什么位置。我们希望此服务在持续多用户系统启动并运行时启动：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[whole]</span><br><span class="line">Description=gunicorn daemon</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=user</span><br><span class="line">Group=nginx</span><br><span class="line">WorkingDirectory=/home/user/myproject</span><br><span class="line">ExecStart=/home/user/myproject/myprojectenv/bin/gunicorn --workers <span class="number">3</span> --bind unix:/home/user/myproject/myproject.sock myproject.wsgi:application</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>这样，我们的Systemd服务文件就完成了。现在保存并关闭它。</p>
+<p>我们现在可以启动我们创建的Gunicorn服务并启用它，以便在启动时启动：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start gunicorn</span><br><span class="line">sudo systemctl enable gunicorn</span><br></pre></td></tr></table></figure>
+<h2 id="将Nginx配置为代理传递给Gunicorn"><a href="#将Nginx配置为代理传递给Gunicorn" class="headerlink" title="将Nginx配置为代理传递给Gunicorn"></a>将Nginx配置为代理传递给Gunicorn</h2><p>现在Gunicorn已经建立，我们需要配置Nginx来将流量传递给进程。</p>
+<h3 id="修改Nginx配置文件"><a href="#修改Nginx配置文件" class="headerlink" title="修改Nginx配置文件"></a>修改Nginx配置文件</h3><p>我们可以通过编辑重要的Nginx配置文件来调整服务器块配置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<p>在里面，在已经存在的服务器模块的正上方新建一个全新的服务器模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    . . .</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen <span class="number">80</span> default_server;</span><br><span class="line"></span><br><span class="line">        . . .</span><br></pre></td></tr></table></figure>
+<p>我们将把我们的Django应用程序的所有配置放入这个全新的模块中。我们将首先选择这个块应该听取正常端口80，并且它应该回复我们服务器的域名或IP地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们将告诉Nginx忽略找到favicon的任何困难。我们还会告诉它在哪里可以找到我们目录中积累的静态拥有同义词/ Hypernyms 。所有这些记录都有一个高质量的URI“/ static”，所以我们可以创建一个场地块来匹配这些问题：<code>~/myproject/static</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">80</span>;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location = /favicon.ico &#123; access_log off; log_not_found off; &#125;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">        root /home/user/myproject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们将创建一个<code>venue / {}</code>块来匹配所有其他问题。在这个场地内部，我们将设置一些等级代理HTTP标头，以便Gunicorn可以获得有关远端连接的一些信息。然后我们将流量传递到我们在Gunicorn Systemd整个文件中指定的套接字：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">80</span>;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location = /favicon.ico &#123; access_log off; log_not_found off; &#125;</span><br><span class="line">    location /static/ &#123;</span><br><span class="line">        root /home/user/myproject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line">        proxy_pass http://unix:/home/user/myproject/myproject.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完成后保存并关闭文件。</p>
+<h3 id="调整组成员资格和权限"><a href="#调整组成员资格和权限" class="headerlink" title="调整组成员资格和权限"></a>调整组成员资格和权限</h3><p>该<code>nginx</code>用户必须能够访问我们的应用程序目录，以便它可以提供静态记录，访问套接字记录等的CentOS非常严格地锁定了每个用户的环境目录，所以我们将提高<code>nginx</code>用户对我们的用户的团队，这样我们就可以半掩增加必要的最低权限以使其发挥作用。</p>
+<p><code>nginx</code>通过以下控制将用户添加到您的团队。相当于您<code>user</code>在管理中的自己的用户名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -a -G user nginx</span><br></pre></td></tr></table></figure>
+<p>现在，我们可以在我们的环境目录上给予我们的用户派系终止权限。这将允许Nginx进程进入并访问以下内部的通信：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">710</span> /home/user</span><br></pre></td></tr></table></figure>
+<p>通过设置权限，我们可以试验我们的Nginx配置文件中的结构错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
+<p>如果没有错误，请键入以下命令重新启动Nginx服务：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start nginx</span><br></pre></td></tr></table></figure>
+<p>通过输入以下命令告诉init系统启动Nginx服务器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable nginx</span><br></pre></td></tr></table></figure>
+<p>您现在应该可以在浏览器中通过服务器的域名或IP地址访问Django应用程序，无需指定端口。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/linux命令/" rel="next" title="linux命令">
+                <i class="fa fa-chevron-left"></i> linux命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/21/dajngo常见错误信息/" rel="prev" title="dajngo常见错误信息">
+                dajngo常见错误信息 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邱  洋</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django项目部署"><span class="nav-number">1.</span> <span class="nav-text">Django项目部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在虚拟环境安装Gunicorn"><span class="nav-number">1.1.</span> <span class="nav-text">在虚拟环境安装Gunicorn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Gunicorn为项目服务器"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装Gunicorn为项目服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个Gunicorn-Systemd服务文件"><span class="nav-number">1.2.</span> <span class="nav-text">创建一个Gunicorn Systemd服务文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Nginx配置为代理传递给Gunicorn"><span class="nav-number">1.3.</span> <span class="nav-text">将Nginx配置为代理传递给Gunicorn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改Nginx配置文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">修改Nginx配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调整组成员资格和权限"><span class="nav-number">1.3.2.</span> <span class="nav-text">调整组成员资格和权限</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邱  洋</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://true.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/06/20/Django项目部署/';
+          this.page.identifier = '2018/06/20/Django项目部署/';
+          this.page.title = 'Django项目部署';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://true.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
